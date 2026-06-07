@@ -20,8 +20,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-dev-key-change-in-produc
 
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
-
+ALLOWED_HOSTS = ['*']
 # Application definition
 # daphne must be listed before django.contrib.staticfiles (Django Channels requirement)
 DJANGO_APPS = [
