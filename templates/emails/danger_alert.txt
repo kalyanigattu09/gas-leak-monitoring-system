@@ -1,0 +1,14 @@
+Smart Gas Monitoring — DANGER ALERT
+=====================================
+
+Room: {{ room_name }}
+Gas Level: {{ gas_level }}
+Status: {{ status }}
+Timestamp: {{ timestamp|date:"Y-m-d H:i:s" }}
+
+Message:
+{{ message }}
+
+---
+This is an automated alert from the Smart Gas Leakage Monitoring System.
+Please investigate immediately.

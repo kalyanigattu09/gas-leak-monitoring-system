@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Analytics — Smart Gas Monitoring{% endblock %}
+
+{% block content %}
+<h1 class="h3 mb-4">Analytics</h1>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card stat-card border-0 shadow-sm text-center">
+            <div class="card-body py-3">
+                <div class="stat-label">Daily Avg</div>
+                <div class="stat-value fs-4">{{ summary.daily_average }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card stat-card border-0 shadow-sm text-center">
+            <div class="card-body py-3">
+                <div class="stat-label">Weekly Avg</div>
+                <div class="stat-value fs-4">{{ summary.weekly_average }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card stat-card border-0 shadow-sm text-center">
+            <div class="card-body py-3">
+                <div class="stat-label">Monthly Avg</div>
+                <div class="stat-value fs-4">{{ summary.monthly_average }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card stat-card border-0 shadow-sm text-center">
+            <div class="card-body py-3">
+                <div class="stat-label">Peak</div>
+                <div class="stat-value fs-4">{{ summary.peak_reading }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card stat-card border-0 shadow-sm text-center">
+            <div class="card-body py-3">
+                <div class="stat-label">Alerts</div>
+                <div class="stat-value fs-4 text-danger">{{ summary.alert_count }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4 col-lg-2">
+        <div class="card stat-card border-0 shadow-sm text-center">
+            <div class="card-body py-3">
+                <div class="stat-label">Readings</div>
+                <div class="stat-value fs-4">{{ summary.total_readings }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white"><h2 class="h6 mb-0">Daily Average (Last 7 Days)</h2></div>
+            <div class="card-body"><canvas id="lineChart" height="120"></canvas></div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white"><h2 class="h6 mb-0">Status Distribution</h2></div>
+            <div class="card-body"><canvas id="pieChart"></canvas></div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white"><h2 class="h6 mb-0">Peak Reading by Room</h2></div>
+            <div class="card-body"><canvas id="barChart" height="120"></canvas></div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white"><h2 class="h6 mb-0">Room Comparison</h2></div>
+            <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                    <thead><tr><th>Room</th><th>Avg</th><th>Peak</th></tr></thead>
+                    <tbody>
+                        {% for room in summary.room_comparison %}
+                        <tr>
+                            <td>{{ room.room_name }}</td>
+                            <td>{{ room.average }}</td>
+                            <td>{{ room.peak }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="3" class="text-muted text-center">No data</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="{% static 'js/analytics.js' %}"></script>
+<script>
+    initAnalyticsCharts(
+        {{ line_chart_json|safe }},
+        {{ pie_chart_json|safe }},
+        {{ bar_chart_json|safe }}
+    );
+</script>
+{% endblock %}

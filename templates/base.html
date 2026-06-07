@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Smart Gas Monitoring System{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top shadow-sm">
+        <div class="container-fluid">
+            <button class="btn btn-link text-white d-lg-none me-2 p-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas">
+                <i class="bi bi-list fs-4"></i>
+            </button>
+            <a class="navbar-brand fw-bold" href="{% url 'core:home' %}">
+                <i class="bi bi-shield-check me-1"></i> Smart Gas Monitor
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <span class="nav-link text-white-50 d-none d-lg-inline">
+                            <i class="bi bi-person-circle"></i> {{ user.username }}
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:profile' %}">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <form method="post" action="{% url 'accounts:logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link">Logout</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'accounts:register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="d-flex app-wrapper">
+        {% if user.is_authenticated %}
+        <aside class="sidebar d-none d-lg-flex flex-column">
+            {% include "partials/sidebar.html" %}
+        </aside>
+        <div class="offcanvas offcanvas-start sidebar-offcanvas d-lg-none" tabindex="-1" id="sidebarOffcanvas">
+            <div class="offcanvas-header bg-primary text-white">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body p-0">
+                {% include "partials/sidebar.html" %}
+            </div>
+        </div>
+        {% endif %}
+
+        <main class="main-content flex-grow-1">
+            <div class="container-fluid py-4">
+                {% if messages %}
+                <div class="messages-container">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% block content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+
+    <div id="live-alert-toast-container" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'js/websocket.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

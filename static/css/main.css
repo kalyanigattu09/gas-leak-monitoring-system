@@ -1,0 +1,139 @@
+:root {
+    --sg-primary: #0d6efd;
+    --sg-danger: #dc3545;
+    --sg-warning: #ffc107;
+    --sg-success: #198754;
+    --sidebar-width: 260px;
+    --navbar-height: 56px;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #f0f2f5;
+    padding-top: var(--navbar-height);
+}
+
+.app-wrapper {
+    min-height: calc(100vh - var(--navbar-height));
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    min-height: calc(100vh - var(--navbar-height));
+    background: #fff;
+    border-right: 1px solid #dee2e6;
+    position: sticky;
+    top: var(--navbar-height);
+    align-self: flex-start;
+}
+
+.sidebar-nav .nav-link {
+    color: #495057;
+    padding: 0.75rem 1.25rem;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.sidebar-nav .nav-link:hover {
+    background: #f8f9fa;
+    color: var(--sg-primary);
+}
+
+.sidebar-nav .nav-link.active {
+    background: #e7f1ff;
+    color: var(--sg-primary);
+    border-left-color: var(--sg-primary);
+    font-weight: 600;
+}
+
+.sidebar-nav .nav-link i {
+    width: 1.5rem;
+}
+
+.main-content {
+    min-width: 0;
+}
+
+.stat-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1) !important;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #212529;
+}
+
+.status-badge,
+.status-safe,
+.status-warning,
+.status-danger,
+.status-unknown {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-safe, .status-badge.status-safe, .badge.status-safe {
+    background-color: var(--sg-success) !important;
+    color: #fff !important;
+}
+
+.status-warning, .status-badge.status-warning, .badge.status-warning {
+    background-color: var(--sg-warning) !important;
+    color: #212529 !important;
+}
+
+.status-danger, .status-badge.status-danger, .badge.status-danger {
+    background-color: var(--sg-danger) !important;
+    color: #fff !important;
+}
+
+.status-unknown, .status-badge.status-unknown {
+    background-color: #6c757d !important;
+    color: #fff !important;
+}
+
+.gas-level-danger {
+    color: var(--sg-danger);
+    font-weight: 700;
+}
+
+.gas-level-warning {
+    color: #856404;
+    font-weight: 600;
+}
+
+.table th {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: #6c757d;
+}
+
+.card {
+    border-radius: 0.5rem;
+}
+
+.min-vh-50 {
+    min-height: 50vh;
+}
+
+@media (max-width: 991.98px) {
+    .main-content {
+        width: 100%;
+    }
+}

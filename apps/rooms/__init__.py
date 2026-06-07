@@ -1,0 +1,1 @@
+"""Room management application."""

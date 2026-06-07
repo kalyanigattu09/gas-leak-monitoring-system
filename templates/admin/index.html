@@ -1,0 +1,24 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+{% if monitoring_stats %}
+<div class="module" style="margin-bottom: 20px;">
+    <table style="width: 100%;">
+        <caption style="caption-side: top; font-weight: bold; font-size: 14px; padding: 8px 0;">
+            Monitoring Statistics
+        </caption>
+        <tr>
+            <td><strong>Total Readings:</strong> {{ monitoring_stats.total_readings }}</td>
+            <td><strong>Peak Reading:</strong> {{ monitoring_stats.peak_reading }}</td>
+            <td><strong>Average:</strong> {{ monitoring_stats.average_reading }}</td>
+        </tr>
+        <tr>
+            <td><strong>Total Alerts:</strong> {{ monitoring_stats.total_alerts }}</td>
+            <td><strong>Active Alerts:</strong> {{ monitoring_stats.active_alerts }}</td>
+            <td></td>
+        </tr>
+    </table>
+</div>
+{% endif %}
+{{ block.super }}
+{% endblock %}

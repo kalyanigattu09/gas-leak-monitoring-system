@@ -1,0 +1,42 @@
+<ul class="nav flex-column sidebar-nav">
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' and request.resolver_match.namespace == 'monitoring' %}active{% endif %}" href="{% url 'monitoring:dashboard' %}">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.namespace == 'rooms' %}active{% endif %}" href="{% url 'rooms:list' %}">
+            <i class="bi bi-door-open"></i> Rooms
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'alerts' %}active{% endif %}" href="{% url 'monitoring:alerts' %}">
+            <i class="bi bi-exclamation-triangle"></i> Alerts
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.namespace == 'analytics' %}active{% endif %}" href="{% url 'analytics:dashboard' %}">
+            <i class="bi bi-bar-chart-line"></i> Analytics
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'reports:system' %}">
+            <i class="bi bi-file-earmark-pdf"></i> System Report
+        </a>
+    </li>
+    <li class="nav-item mt-3 border-top pt-3">
+        <a class="nav-link" href="{% url 'accounts:profile' %}">
+            <i class="bi bi-person"></i> Profile
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:password_change' %}">
+            <i class="bi bi-key"></i> Change Password
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/api/v1/" target="_blank">
+            <i class="bi bi-code-slash"></i> API
+        </a>
+    </li>
+</ul>
