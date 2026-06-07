@@ -4,6 +4,7 @@ Production settings — secure defaults for deployment.
 from .base import *  # noqa: F401, F403
 
 DEBUG = False
+ALLOWED_HOSTS = ['gas-leak-monitoring-system.onrender.com', '*']
 
 # Security settings
 SECURE_BROWSER_XSS_FILTER = True
